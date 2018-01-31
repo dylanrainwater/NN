@@ -8,13 +8,24 @@ NN::NN(std::string input_file)
     this->predictions = std::vector <std::string>();
     this->alpha = 0.01;
     
-    populateData();
 
-    /* Populate weights and bias term */
+    /* Populate data, weights and bias term */
     srand(time(NULL));
+
+    if (input_file != "") {
+        populateData();
+        populateWeights();
+
+        original_weights = weights;
+    }
+    bias = randomDouble();
+    original_bias = bias;
+}
+
+void NN::populateWeights()
+{
     for (int i = 0; i < data[0].size(); i++)
         weights.push_back(randomDouble());
-    bias = randomDouble();
 }
 
 void NN::setAlpha(double alpha)
@@ -217,4 +228,15 @@ double NN::test(int num)
     }
     accuracy /= num;
     return accuracy;
+}
+
+void NN::reset(bool keep_weights)
+{
+    if (keep_weights) {
+        weights = original_weights;
+        bias = original_bias;
+    } else {
+        populateWeights();
+        bias = randomDouble();
+    }
 }

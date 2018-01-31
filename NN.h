@@ -22,11 +22,13 @@ class NN {
         std::vector <std::string> predictions;
         std::vector <double> weights;
         std::vector <Label> labels;
+        double original_weights;
+        double original_bias;
         double alpha;
         double bias;
         double randomDouble();
     public:
-        NN(std::string input_file);
+        NN(std::string input_file="");
 
         double getPerfectVal(Label& label);
         double getPerfectVal(std::string& label_name);
@@ -43,9 +45,10 @@ class NN {
         double sigmoid_derivative(double n);
         double cost(std::vector <double>& targets, std::vector <double>& predictions);
         double cost(double target, double prediction);
-        double reset(bool keep_weights);
+        void reset(bool keep_weights);
         double test(int num);
         void setAlpha(double alpha);
+        void populateWeights();
 };
 
 #endif
