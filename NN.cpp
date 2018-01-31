@@ -15,13 +15,16 @@ void NN::train_test_split()
 
 void NN::addData(std::vector <double>& data)
 {
+    for (double data_point : data)
+        addDataPoint(data_point);
 }
 
 void NN::addDataPoint(double data_point)
 {
+    this->data.push_back(data_point);
 }
 
-void NN::train(std::string file_name="")
+void NN::train(std::string file_name="", int iterations=1000)
 {
 }
 
@@ -37,22 +40,28 @@ std::string NN::predict(double data_point)
     return prediction;
 }
 
-double NN:sigmoid(double n)
+double NN::sigmoid(double n)
 {
+    return 1.0 / (1.0 + exp(-n));
 }
 
-double NN:sigmoid_derivative(double n)
+double NN::sigmoid_derivative(double n)
 {
+    return sigmoid(n) * (1 - sigmoid(n));
 }
 
+/* Average squared error cost function */
 double NN::cost(std::vector <double>& targets, std::vector <double>& predictions)
 {
-    double cost;
-    return cost;
+    double average_cost;
+    for (int i = 0; i < targets.size(); i++)
+        average_cost += cost(targets[i], predictions[i]); 
+    average_cost /= targets.size();
+    return average_cost;
 }
 
+/* Squared error cost function */
 double NN::cost(double target, double prediction)
 {
-    double cost;
-    return cost;
+    return (prediction - target) * (prediction - target);
 }
