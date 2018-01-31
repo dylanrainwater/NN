@@ -3,7 +3,7 @@
 NN::NN(std::string input_file, int label_col=-1)
 {
     this->input_file = input_file;
-    this->data = std::vector <double>();
+    this->data = std::vector <std::vector <double>>();
     this->predictions = std::vector <std::string>();
 
     //TODO Read input file and populate data
@@ -13,19 +13,20 @@ void NN::train_test_split()
 {
 }
 
-void NN::addData(std::vector <double>& data)
+void NN::addData(std::vector <std::vector <double>>& data)
 {
-    for (double data_point : data)
+    for (std::vector <double>& data_point : data)
         addDataPoint(data_point);
 }
 
-void NN::addDataPoint(double data_point)
+void NN::addDataPoint(std::vector <double>& data_point)
 {
     this->data.push_back(data_point);
 }
 
 void NN::train(std::string file_name="", int iterations=1000)
 {
+
 }
 
 std::vector <std::string> NN::predict(std::vector <double>& data)

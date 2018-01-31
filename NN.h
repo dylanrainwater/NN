@@ -8,13 +8,15 @@
 class NN {
     private:
         std::string input_file;
-        std::vector <double> data;
+        std::vector <std::vector <double>> data;
         std::vector <std::string> predictions;
+        std::vector <double> weights;
+        double bias;
     public:
         NN(std::string input_file, int label_col);
         void train_test_split();
-        void addData(std::vector <double>& data); /* To set data without the need of a file */
-        void addDataPoint(double data_point);
+        void addData(std::vector <std::vector <double>>& data); /* To set data without the need of a file */
+        void addDataPoint(std::vector <double>& data_point);
         void train(std::string file_name, int iterations); /* Train neural network on data */
         std::vector <std::string> predict(std::vector <double>& data);
         std::string predict(double data_point);
